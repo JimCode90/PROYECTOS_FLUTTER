@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notnetflix/models/movie.dart';
 import 'package:notnetflix/repositories/data_repository.dart';
 import 'package:notnetflix/services/api_services.dart';
+import 'package:notnetflix/ui/widgets/movie_card.dart';
+import 'package:notnetflix/ui/widgets/movie_category.dart';
 import 'package:notnetflix/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -43,34 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.red,
             child: dataProvider.popularMovieList.isEmpty
                 ? const Center()
-                : Image.network(
-                    dataProvider.popularMovieList[0].posterURL(),
-                    fit: BoxFit.cover,
-                  ),
+                : MovieCard(movie: dataProvider.popularMovieList.first),
           ),
-          const SizedBox(height: 15),
-          Text(
-            'Tendecias actuales',
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          MovieCategory(
+              label: 'Tendecias actuales',
+              movieList: dataProvider.popularMovieList,
+              imageHeight: 160,
+              imageWidth: 110
           ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 160,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.only(right: 8),
-                    width: 110,
-                    color: Colors.yellow,
-                    child: dataProvider.popularMovieList.isEmpty
-                        ? Center(child: Text(index.toString()))
-                        : Image.network(dataProvider.popularMovieList[index].posterURL(),
-                            fit: BoxFit.cover));
-              },
-            ),
+          MovieCategory(
+              label: 'Actualmente en el cine',
+              movieList: dataProvider.popularMovieList,
+              imageHeight: 320,
+              imageWidth: 220
           ),
           const SizedBox(height: 15),
           Text(
