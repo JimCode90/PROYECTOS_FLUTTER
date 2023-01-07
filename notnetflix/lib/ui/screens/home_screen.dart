@@ -51,63 +51,22 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Tendecias actuales',
               movieList: dataProvider.popularMovieList,
               imageHeight: 160,
-              imageWidth: 110
+              imageWidth: 110,
+              callback: dataProvider.getPopularMovies,
           ),
           MovieCategory(
               label: 'Actualmente en el cine',
-              movieList: dataProvider.popularMovieList,
+              movieList: dataProvider.nowPlaying,
               imageHeight: 320,
-              imageWidth: 220
+              imageWidth: 220,
+              callback: dataProvider.getNowPlaying,
           ),
-          const SizedBox(height: 15),
-          Text(
-            'Actualmente en el cine',
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 320,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  width: 220,
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(index.toString()),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 15),
-          Text(
-            'Proximos estrenos',
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 160,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  width: 110,
-                  color: Colors.green,
-                  child: Center(
-                    child: Text(index.toString()),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 15),
+          // MovieCategory(
+          //     label: 'Proximos estrenos',
+          //     movieList: dataProvider.popularMovieList,
+          //     imageHeight: 160,
+          //     imageWidth: 110
+          // ),
         ],
       ),
     );

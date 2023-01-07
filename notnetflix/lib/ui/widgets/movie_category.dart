@@ -9,13 +9,16 @@ class MovieCategory extends StatelessWidget {
   final List<Movie> movieList;
   final double imageHeight;
   final double imageWidth;
+  final Function callback;
+
 
   const MovieCategory({
     Key? key,
     required this.label,
     required this.movieList,
     required this.imageHeight,
-    required this.imageWidth
+    required this.imageWidth,
+    required this.callback
   }) : super(key: key);
 
   @override
@@ -32,21 +35,30 @@ class MovieCategory extends StatelessWidget {
         const SizedBox(height: 5),
         SizedBox(
           height: imageHeight,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  width: imageWidth,
-                  color: Colors.yellow,
-                  child: movieList.isEmpty
-                      ? Center(child: Text(index.toString()))
-                      : MovieCard(
-                    movie: movieList[index],
-                  )
-              );
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              final currentPosition = notification.metrics.pixels;
+              final maxPosition = notification.metrics.maxScrollExtent;
+              if(currentPosition >= maxPosition / 2){
+                callback();
+              }
+              return true;
             },
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: movieList.length,
+              itemBuilder: (context, index) {
+                return Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    width: imageWidth,
+                    child: movieList.isEmpty
+                        ? Center(child: Text(index.toString()))
+                        : MovieCard(
+                      movie: movieList[index],
+                    )
+                );
+              },
+            ),
           ),
         ),
       ],
