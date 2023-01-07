@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(ListeView2Screen());
-
-class ListeView2Screen extends StatelessWidget {
+class ListView2Screen extends StatelessWidget {
 
   final options = const['elemento1', 'elemento2', 'elemento3', 'elemento4'];
   
-  const ListeView2Screen({Key? key}) : super(key: key);
+  const ListView2Screen({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -18,9 +16,10 @@ class ListeView2Screen extends StatelessWidget {
           itemBuilder: (context, index) => ListTile(
             leading: const Icon( Icons.access_time ),
             title: Text(options[index]),
-            trailing: const Icon( Icons.arrow_forward_ios_outlined),
+            trailing: const Icon( Icons.arrow_forward_ios_outlined, color: Colors.indigo,),
             onTap: () {
-
+              final game = options[index];
+              print(game);
             },
           ),
           separatorBuilder: (_, __) => const Divider(),
