@@ -1,4 +1,6 @@
 
+import 'package:notnetflix/services/api.dart';
+
 class Movie {
 
   final int id;
@@ -33,10 +35,15 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> map) {
     return Movie(
       id: map['id'] as int,
-      name: map['name'] as String,
-      description: map['description'] as String,
-      posterPath: map['posterPath'] as String,
+      name: map['title'] as String,
+      description: map['overview'] as String,
+      posterPath: map['poster_path'] as String,
     );
+  }
+
+  String posterURL () {
+    API api = API();
+    return api.baseImageURL + posterPath!;
   }
 
 }
